@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
+	<InternalsVisibleTo Include="..\IntegrationTests" />
   </ItemGroup>
 
 </Project>

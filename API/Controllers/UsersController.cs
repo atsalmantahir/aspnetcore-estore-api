@@ -1,5 +1,4 @@
 ﻿using DomainLayer.Models.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer.IService;
 
@@ -29,6 +28,12 @@ namespace API.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
             await this.userService.Register(registerModel);
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SampleApi()
+        {
             return Ok();
         }
     }
