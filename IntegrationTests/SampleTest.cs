@@ -14,7 +14,7 @@ namespace IntegrationTests
         {
             var application = new WebApplicationFactory<Program>();
             var httpClient = application.CreateClient(); 
-            var response = await httpClient.GetAsync("api/users");
+            var response = await httpClient.GetAsync("api/status");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }

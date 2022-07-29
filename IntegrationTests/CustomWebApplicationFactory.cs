@@ -9,7 +9,7 @@ using System.Linq;
 namespace IntegrationTests
 {
     public class CustomWebApplicationFactory<TStartup>
-        : WebApplicationFactory<TStartup> where TStartup: class
+        : WebApplicationFactory<TStartup> where TStartup : class
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder) 
         {
@@ -22,7 +22,7 @@ namespace IntegrationTests
 
                 services.AddDbContext<StoreDbContext>(options => 
                 {
-                    options.UseInMemoryDatabase("InMemoryDatabaseForTesting");
+                    options.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
 
                 var sp = services.BuildServiceProvider();

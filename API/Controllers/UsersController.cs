@@ -30,11 +30,5 @@ namespace API.Controllers
             await this.userService.Register(registerModel);
             return Ok();
         }
-
-        [HttpGet]
-        public async Task<IActionResult> SampleApi()
-        {
-            return Ok();
-        }
     }
 }
