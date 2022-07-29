@@ -59,8 +59,6 @@ namespace IntegrationTests.UsersTests
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
-
-
         [Fact]
         public async Task WhenUsernameIsNotBeingProvidedInRegisterUser_ReturnBadRequest()
         {

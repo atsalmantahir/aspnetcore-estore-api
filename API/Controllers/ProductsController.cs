@@ -23,10 +23,26 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetProducts()
+        public async Task<IActionResult> GetProducts()
         {
-            var products = this.productService.GetProducts();
+            var products = await this.productService.GetProducts();
             return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetProduct(Guid id)
+        {
+            var product = await this.productService.GetByIdAsync(id);
+            return Ok(product);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {
+            var product = await this.productService.DeleteAsync(id);
+            return Ok(product);
         }
     }
 }

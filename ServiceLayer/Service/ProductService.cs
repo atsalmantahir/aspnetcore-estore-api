@@ -23,10 +23,24 @@ namespace ServiceLayer.Service
             this.productRepository.AddProduct(product);
         }
 
-        public List<ProductsViewModel> GetProducts()
+        public async Task<List<ProductsViewModel>> GetProducts()
         {
-            var products = this.productRepository.GetAll();
+            var products = await this.productRepository.GetAllAsync();
             return mapper.Map<List<ProductsViewModel>>(products);
+        }
+
+        public async Task<ProductsViewModel> GetByIdAsync(Guid Id)
+        {
+            var product = await this.productRepository.GetByIdAsync(Id);
+            return mapper.Map<ProductsViewModel>(product);
+        }
+
+        public async Task<bool> DeleteAsync(Guid Id)
+        {
+            var product = await this.productRepository.GetByIdAsync(Id);
+
+            var result = await this.productRepository.DeleteAsync(product);
+            return result;
         }
     }
 }

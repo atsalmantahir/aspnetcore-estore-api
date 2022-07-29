@@ -1,4 +1,5 @@
 ﻿using DomainLayer.Data;
+using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.IRepository;
 using System.Linq.Expressions;
 
@@ -28,14 +29,14 @@ namespace RepositoryLayer.Repository
             return context.Set<T>().Where(expression);
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return context.Set<T>().ToList();
+            return await context.Set<T>().ToListAsync();
         }
 
-        public T GetById(Guid Id)
+        public async Task<T> GetByIdAsync(Guid Id)
         {
-            return context.Set<T>().Find(Id);
+            return await context.Set<T>().FindAsync(Id);
         }
 
         public void Remove(T entity)

@@ -1,5 +1,6 @@
 ﻿using DomainLayer.Data;
 using DomainLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.IRepository;
 
 namespace RepositoryLayer.Repository
@@ -16,9 +17,28 @@ namespace RepositoryLayer.Repository
             context.SaveChanges();
         }
 
-        List<Product> IProductRepository.GetAll()
+        async Task<List<Product>> IProductRepository.GetAllAsync()
         {
-            return context.Products.ToList();
+            return await context.Products.ToListAsync();
+        }
+
+        async Task<Product> IProductRepository.GetByIdAsync(Guid Id)
+        {
+            return await context.Products.FirstOrDefaultAsync(x => x.Id.Equals(Id));
+        }
+
+        async Task<bool> IProductRepository.DeleteAsync(Product product) 
+        {
+            try
+            {
+                context.Products.Remove(product);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
         }
     }
 }
