@@ -11,7 +11,6 @@ namespace IntegrationTests.ProductsTests
 {
     public class CreateProductTests
     {
-
         [Fact]
         public async Task CreateProduct_ReturnOK()
         {
