@@ -12,7 +12,19 @@ using ServiceLayer.IService;
 using ServiceLayer.Service;
 using System.Text;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy(MyAllowSpecificOrigins,
+        policy => 
+        {
+            policy.AllowAnyMethod();
+            policy.AllowAnyHeader();
+            policy.AllowAnyOrigin();
+        });
+});
 
 // Add services to the container.
 //Adding database service
@@ -72,6 +84,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(MyAllowSpecificOrigins);
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
