@@ -40,5 +40,11 @@ namespace RepositoryLayer.Repository
                 return false;
             }
         }
+
+        public void UpdateProduct(Product product)
+        {
+            context.Products.Update(product);
+            context.SaveChanges();
+        }
     }
 }

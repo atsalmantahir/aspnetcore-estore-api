@@ -8,5 +8,6 @@ namespace RepositoryLayer.IRepository
         Task<List<Product>> GetAllAsync();
         Task<Product> GetByIdAsync(Guid Id);
         Task<bool> DeleteAsync(Product product);
+        void UpdateProduct(Product product);
     }
 }

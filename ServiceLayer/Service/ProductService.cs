@@ -42,5 +42,11 @@ namespace ServiceLayer.Service
             var result = await this.productRepository.DeleteAsync(product);
             return result;
         }
+
+        public void UpdateProduct(UpdateProductModel updateProduct)
+        {
+            var productToUpdate = mapper.Map<Product>(updateProduct);
+            this.productRepository.UpdateProduct(productToUpdate);
+        }
     }
 }

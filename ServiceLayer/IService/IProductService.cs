@@ -8,5 +8,6 @@ namespace ServiceLayer.IService
         Task<List<ProductsViewModel>> GetProducts();
         Task<ProductsViewModel> GetByIdAsync(Guid Id);
         Task<bool> DeleteAsync(Guid Id);
+        void UpdateProduct(UpdateProductModel updateProduct);
     }
 }

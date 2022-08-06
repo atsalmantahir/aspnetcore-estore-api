@@ -10,6 +10,7 @@ namespace ServiceLayer.Extensions
         {
             CreateMap<AddProductModel, Product>().ReverseMap();
             CreateMap<ProductsViewModel, Product>().ReverseMap();
+            CreateMap<UpdateProductModel, Product>().ReverseMap();
         }
     }
 }

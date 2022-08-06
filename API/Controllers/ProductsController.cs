@@ -44,5 +44,18 @@ namespace API.Controllers
             var product = await this.productService.DeleteAsync(id);
             return Ok(product);
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateProduct(Guid id, UpdateProductModel updateProduct)
+        {
+            if (!id.Equals(updateProduct.Id)) 
+            {
+                return BadRequest("ID_MISMATCH");
+            }
+
+            this.productService.UpdateProduct(updateProduct);
+            return Ok();
+        }
     }
 }
