@@ -4,5 +4,6 @@
     {
         public const string ADMIN = "ADMIN";
         public const string USER = "USER";
+        public const string CUSTOMER = "CUSTOMER";
     }
 }

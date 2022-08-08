@@ -1,4 +1,6 @@
-﻿namespace DomainLayer.Models
+﻿using DomainLayer.Models.Enums;
+
+namespace DomainLayer.Models
 {
     public class EntityMeta
     {
