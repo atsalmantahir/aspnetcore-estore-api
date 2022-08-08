@@ -12,5 +12,8 @@ namespace DomainLayer.Data
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<UserDetail> UserDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
     }
 }
