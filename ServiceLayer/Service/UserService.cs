@@ -94,7 +94,7 @@ namespace ServiceLayer.Service
 
             if (result.Succeeded) 
             {
-                switch (registerModel.userRole)
+                switch (registerModel.UserRole)
                 {
                     case DomainLayer.Models.Enums.UserRole.ADMIN:
                         // Add Admin

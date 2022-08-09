@@ -14,6 +14,6 @@ namespace DomainLayer.Models.ViewModels
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
-        public UserRole userRole { get; set; }
+        public UserRole UserRole { get; set; }
     }
 }
