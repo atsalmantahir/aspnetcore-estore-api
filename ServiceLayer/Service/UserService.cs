@@ -73,24 +73,28 @@ namespace ServiceLayer.Service
             return new OkObjectResult(tokenResponse);
         }
 
-        public async Task Register(RegisterModel registerModel)
+        public async Task<ObjectResult> Register(RegisterModel registerModel)
         {
-            try
+            
+            var userNameExists = await userManager.FindByNameAsync(registerModel.Username);
+            var emailExists = await userManager.FindByEmailAsync(registerModel.Email);
+            if (userNameExists != null || emailExists != null) 
             {
-                var userExists = await userManager.FindByNameAsync(registerModel.Username);
-                if (userExists != null) { }
+                throw new HttpStatusCodeException(HttpStatusCode.Conflict,
+                "USER_ALREADY_EXISTS");
+            }
 
-                ApplicationUser user = new ApplicationUser()
-                {
-                    Email = registerModel.Email,
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = registerModel.Username
-                };
-                var result = await userManager.CreateAsync(user, registerModel.Password);
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = registerModel.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = registerModel.Username
+            };
+            var result = await userManager.CreateAsync(user, registerModel.Password);
 
-                if (result.Succeeded) { }
-
-                switch (registerModel.userRole) 
+            if (result.Succeeded) 
+            {
+                switch (registerModel.userRole)
                 {
                     case DomainLayer.Models.Enums.UserRole.ADMIN:
                         // Add Admin
@@ -105,37 +109,16 @@ namespace ServiceLayer.Service
                         await roleManager.CreateAsync(new IdentityRole(UserRole.CUSTOMER));
                         break;
                     default:
-                        return;
+                        throw new HttpStatusCodeException(HttpStatusCode.UnprocessableEntity,
+                    "NO_USER_ROLE_FOUND");
                 }
-            }
-            catch (Exception ex)
-            {
-            }
-        }
 
-        public async Task RegisterAdmin(RegisterModel registerModel)
-        {
-            var userExists = await userManager.FindByNameAsync(registerModel.Username);
-            if (userExists != null) { }
-
-            ApplicationUser user = new ApplicationUser()
-            {
-                Email = registerModel.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerModel.Username
-            };
-            var result = await userManager.CreateAsync(user, registerModel.Password);
-            if (!result.Succeeded)
-            { }
-            if (!await roleManager.RoleExistsAsync(UserRole.ADMIN))
-                await roleManager.CreateAsync(new IdentityRole(UserRole.ADMIN));
-            if (!await roleManager.RoleExistsAsync(UserRole.USER))
-                await roleManager.CreateAsync(new IdentityRole(UserRole.USER));
-
-            if (await roleManager.RoleExistsAsync(UserRole.ADMIN))
-            {
-                await userManager.AddToRoleAsync(user, UserRole.ADMIN);
+                return new CreatedResult(String.Empty, "User Created");
             }
+
+            throw new HttpStatusCodeException(HttpStatusCode.Conflict,
+                result.Errors.FirstOrDefault().Description);
+            
         }
     }
 }

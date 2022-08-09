@@ -6,7 +6,6 @@ namespace ServiceLayer.IService
     public interface IUserService
     {
         Task<ObjectResult> Login(LoginModel loginModel);
-        Task Register(RegisterModel registerModel);
-        Task RegisterAdmin(RegisterModel registerModel);
+        Task<ObjectResult> Register(RegisterModel registerModel);
     }
 }

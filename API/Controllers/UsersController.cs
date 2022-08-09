@@ -26,8 +26,8 @@ namespace API.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
-            await this.userService.Register(registerModel);
-            return Ok();
+            var response = await this.userService.Register(registerModel);
+            return response;
         }
     }
 }
