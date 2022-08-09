@@ -19,8 +19,7 @@ namespace API.Controllers
         public async Task<ObjectResult> Login([FromBody] LoginModel loginModel)
         {
             var response = await this.userService.Login(loginModel);
-            this.HttpContext.Response.StatusCode = (int)response.StatusCode;
-            return new ObjectResult(response);
+            return response;
         }
 
         [HttpPost]

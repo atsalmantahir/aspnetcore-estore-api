@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using API.Middlewares;
+using AutoMapper;
 using DomainLayer.Data;
 using DomainLayer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -91,6 +92,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseMiddleware<CustomExceptionMiddleware>();
 app.MapControllers();
 
 app.Run();

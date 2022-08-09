@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using ServiceLayer.Handlers;
 using ServiceLayer.IService;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -31,18 +32,14 @@ namespace ServiceLayer.Service
 
             if (user == null)
             {
-                return new NotFoundObjectResult("USER_NOT_FOUND")
-                {
-                    StatusCode = (int?)HttpStatusCode.NotFound,
-                };
+                throw new HttpStatusCodeException(HttpStatusCode.NotFound,
+                    "USER_NOT_FOUND");
             }
 
             if (!await userManager.CheckPasswordAsync(user, loginModel.Password))
             {
-                return new NotFoundObjectResult("INCORRECT_CREDENTIALS")
-                {
-                    StatusCode = (int?)HttpStatusCode.NotFound,
-                };
+                throw new HttpStatusCodeException(HttpStatusCode.NotFound,
+                    "INCORRECT_CREDENTIALS");
             }
 
             var userRoles = await userManager.GetRolesAsync(user);
