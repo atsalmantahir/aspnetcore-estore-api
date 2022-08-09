@@ -23,18 +23,18 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
+        public async Task<ObjectResult> GetProducts()
         {
-            var products = await this.productService.GetProducts();
-            return Ok(products);
+            var response = await this.productService.GetProducts();
+            return response;
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<IActionResult> GetProduct(Guid id)
+        public async Task<ObjectResult> GetProduct(Guid id)
         {
-            var product = await this.productService.GetByIdAsync(id);
-            return Ok(product);
+            var response = await this.productService.GetByIdAsync(id);
+            return response;
         }
 
         [HttpDelete]

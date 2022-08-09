@@ -41,10 +41,10 @@ namespace RepositoryLayer.Repository
             }
         }
 
-        public void UpdateProduct(Product product)
+        public Task<int> UpdateProduct(Product product)
         {
             context.Products.Update(product);
-            context.SaveChanges();
+            var result = await context.SaveChangesAsync();
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using DomainLayer.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ServiceLayer.IService
 {
     public interface IProductService
     {
-        void AddProduct(AddProductModel addProduct);
-        Task<List<ProductsViewModel>> GetProducts();
-        Task<ProductsViewModel> GetByIdAsync(Guid Id);
-        Task<bool> DeleteAsync(Guid Id);
-        void UpdateProduct(UpdateProductModel updateProduct);
+        Task<ObjectResult> AddProduct(AddProductModel addProduct);
+        Task<ObjectResult> GetProducts();
+        Task<ObjectResult> GetByIdAsync(Guid Id);
+        Task<ObjectResult> DeleteAsync(Guid Id);
+        Task<ObjectResult> UpdateProduct(UpdateProductModel updateProduct);
     }
 }
