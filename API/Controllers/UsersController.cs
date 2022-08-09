@@ -24,7 +24,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
+        [Route("register/admin")]
         public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
         {
             await this.userService.Register(registerModel);

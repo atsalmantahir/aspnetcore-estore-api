@@ -90,6 +90,26 @@ namespace ServiceLayer.Service
                     UserName = registerModel.Username
                 };
                 var result = await userManager.CreateAsync(user, registerModel.Password);
+
+                if (result.Succeeded) { }
+
+                switch (registerModel.userRole) 
+                {
+                    case DomainLayer.Models.Enums.UserRole.ADMIN:
+                        // Add Admin
+                        await roleManager.CreateAsync(new IdentityRole(UserRole.ADMIN));
+                        break;
+                    case DomainLayer.Models.Enums.UserRole.USER:
+                        // Add User
+                        await roleManager.CreateAsync(new IdentityRole(UserRole.USER));
+                        break;
+                    case DomainLayer.Models.Enums.UserRole.CUSTOMER:
+                        // Add Customer
+                        await roleManager.CreateAsync(new IdentityRole(UserRole.CUSTOMER));
+                        break;
+                    default:
+                        return;
+                }
             }
             catch (Exception ex)
             {
@@ -110,14 +130,14 @@ namespace ServiceLayer.Service
             var result = await userManager.CreateAsync(user, registerModel.Password);
             if (!result.Succeeded)
             { }
-            if (!await roleManager.RoleExistsAsync(UserRoles.ADMIN))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.ADMIN));
-            if (!await roleManager.RoleExistsAsync(UserRoles.USER))
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.USER));
+            if (!await roleManager.RoleExistsAsync(UserRole.ADMIN))
+                await roleManager.CreateAsync(new IdentityRole(UserRole.ADMIN));
+            if (!await roleManager.RoleExistsAsync(UserRole.USER))
+                await roleManager.CreateAsync(new IdentityRole(UserRole.USER));
 
-            if (await roleManager.RoleExistsAsync(UserRoles.ADMIN))
+            if (await roleManager.RoleExistsAsync(UserRole.ADMIN))
             {
-                await userManager.AddToRoleAsync(user, UserRoles.ADMIN);
+                await userManager.AddToRoleAsync(user, UserRole.ADMIN);
             }
         }
     }

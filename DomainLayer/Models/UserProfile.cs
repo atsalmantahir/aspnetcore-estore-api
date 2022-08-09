@@ -1,6 +1,6 @@
 ﻿namespace DomainLayer.Models
 {
-    public class UserDetail : EntityMeta
+    public class UserProfile : EntityMeta
     {
         public Guid Id { get; set; }
         public string Firstname { get; set; }

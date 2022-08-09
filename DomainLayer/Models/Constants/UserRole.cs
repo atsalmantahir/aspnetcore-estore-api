@@ -1,6 +1,6 @@
 ﻿namespace DomainLayer.Models.Constants
 {
-    public static class UserRoles
+    public static class UserRole
     {
         public const string ADMIN = "ADMIN";
         public const string USER = "USER";
