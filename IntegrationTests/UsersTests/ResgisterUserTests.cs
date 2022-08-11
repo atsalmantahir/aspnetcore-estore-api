@@ -77,7 +77,7 @@ namespace IntegrationTests.UsersTests
         }
 
         [Fact]
-        public async Task WhenUserIsCreated_ReturnCreated()
+        public async Task WhenACreatedInAdminAccount_ReturnCreated()
         {
             var application = new CustomWebApplicationFactory<Program>();
             var httpClient = application.CreateClient();
@@ -87,15 +87,14 @@ namespace IntegrationTests.UsersTests
                 Email = "test_user@gmail.com",
                 Username = "test_user",
                 Password = "Password1!",
-                UserRole = DomainLayer.Models.Enums.UserRole.ADMIN,
             };
 
-            var response = await httpClient.PostAsJsonAsync(baseUrl, userToRegister);
+            var response = await httpClient.PostAsJsonAsync($"{baseUrl}/admin", userToRegister);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         }
 
         [Fact]
-        public async Task WhenDuplicateUserEmailIsProvided_ReturnConflict()
+        public async Task WhenDuplicateUserEmailIsProvidedInAdminAccount_ReturnConflict()
         {
             var application = new CustomWebApplicationFactory<Program>();
             var httpClient = application.CreateClient();
@@ -105,10 +104,9 @@ namespace IntegrationTests.UsersTests
                 Email = "test_user@gmail.com",
                 Username = "test_user",
                 Password = "Password1!",
-                UserRole = DomainLayer.Models.Enums.UserRole.ADMIN,
             };
 
-            var response = await httpClient.PostAsJsonAsync(baseUrl, userToRegister);
+            var response = await httpClient.PostAsJsonAsync($"{baseUrl}/admin", userToRegister);
 
 
             var duplicateUserToRegister = new RegisterModel
@@ -116,16 +114,15 @@ namespace IntegrationTests.UsersTests
                 Email = "test_user@gmail.com",
                 Username = "test_user_New",
                 Password = "Password1!",
-                UserRole = DomainLayer.Models.Enums.UserRole.ADMIN,
             };
 
-            var duplicateResponse = await httpClient.PostAsJsonAsync(baseUrl, duplicateUserToRegister);
+            var duplicateResponse = await httpClient.PostAsJsonAsync($"{baseUrl}/admin", duplicateUserToRegister);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             Assert.Equal(HttpStatusCode.Conflict, duplicateResponse.StatusCode);
         }
 
         [Fact]
-        public async Task WhenDuplicateUsernameIsProvided_ReturnConflict()
+        public async Task WhenDuplicateUsernameIsProvidedInAdminAccount_ReturnConflict()
         {
             var application = new CustomWebApplicationFactory<Program>();
             var httpClient = application.CreateClient();
@@ -135,10 +132,9 @@ namespace IntegrationTests.UsersTests
                 Email = $"test_user{TestHelper.RandomString()}@gmail.com",
                 Username = $"test_user{TestHelper.RandomString()}",
                 Password = "Password1!",
-                UserRole = DomainLayer.Models.Enums.UserRole.ADMIN,
             };
 
-            var response = await httpClient.PostAsJsonAsync(baseUrl, userToRegister);
+            var response = await httpClient.PostAsJsonAsync($"{baseUrl}/admin", userToRegister);
 
 
             var duplicateUserToRegister = new RegisterModel
@@ -146,16 +142,15 @@ namespace IntegrationTests.UsersTests
                 Email = "test_user_new@gmail.com",
                 Username = $"test_user{TestHelper.RandomString()}",
                 Password = "Password1!",
-                UserRole = DomainLayer.Models.Enums.UserRole.ADMIN,
             };
 
-            var duplicateResponse = await httpClient.PostAsJsonAsync(baseUrl, duplicateUserToRegister);
+            var duplicateResponse = await httpClient.PostAsJsonAsync($"{baseUrl}/admin", duplicateUserToRegister);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             Assert.Equal(HttpStatusCode.Conflict, duplicateResponse.StatusCode);
         }
 
         [Fact]
-        public async Task WhenDuplicateUserEmailAndUsernameIsProvided_ReturnConflict()
+        public async Task WhenDuplicateUserEmailAndUsernameIsProvidedInAdminAccount_ReturnConflict()
         {
             var application = new CustomWebApplicationFactory<Program>();
             var httpClient = application.CreateClient();
@@ -165,10 +160,9 @@ namespace IntegrationTests.UsersTests
                 Email = "test_user@gmail.com",
                 Username = "test_user",
                 Password = "Password1!",
-                UserRole = DomainLayer.Models.Enums.UserRole.ADMIN,
             };
 
-            var response = await httpClient.PostAsJsonAsync(baseUrl, userToRegister);
+            var response = await httpClient.PostAsJsonAsync($"{baseUrl}/admin", userToRegister);
 
 
             var duplicateUserToRegister = new RegisterModel
@@ -176,10 +170,9 @@ namespace IntegrationTests.UsersTests
                 Email = "test_user@gmail.com",
                 Username = "test_user",
                 Password = "Password1!",
-                UserRole = DomainLayer.Models.Enums.UserRole.ADMIN,
             };
 
-            var duplicateResponse = await httpClient.PostAsJsonAsync(baseUrl, duplicateUserToRegister);
+            var duplicateResponse = await httpClient.PostAsJsonAsync($"{baseUrl}/admin", duplicateUserToRegister);
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
             Assert.Equal(HttpStatusCode.Conflict, duplicateResponse.StatusCode);
         }
