@@ -11,10 +11,18 @@ namespace RepositoryLayer.Repository
         {
         }
 
-        public void AddProduct(Product product)
+        public async Task<bool> AddProduct(Product product)
         {
-            context.Products.Add(product);
-            context.SaveChanges();
+            try
+            {
+                context.Products.Add(product);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
         }
 
         async Task<List<Product>> IProductRepository.GetAllAsync()
@@ -41,10 +49,18 @@ namespace RepositoryLayer.Repository
             }
         }
 
-        public Task<int> UpdateProduct(Product product)
+        async Task<bool> IProductRepository.UpdateProduct(Product product)
         {
-            context.Products.Update(product);
-            var result = await context.SaveChangesAsync();
+            try
+            {
+                context.Products.Update(product);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
         }
     }
 }

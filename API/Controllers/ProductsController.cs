@@ -16,10 +16,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(AddProductModel addProduct) 
+        public async Task<ObjectResult> AddProduct(AddProductModel addProduct) 
         {
-            this.productService.AddProduct(addProduct);
-            return Ok();
+            var response = await this.productService.AddProduct(addProduct);
+            return response;
         }
 
         [HttpGet]
@@ -39,10 +39,10 @@ namespace API.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> DeleteProduct(Guid id)
+        public async Task<ObjectResult> DeleteProduct(Guid id)
         {
-            var product = await this.productService.DeleteAsync(id);
-            return Ok(product);
+            var response = await this.productService.DeleteAsync(id);
+            return response;
         }
 
         [HttpPut]
@@ -54,8 +54,8 @@ namespace API.Controllers
                 return BadRequest("ID_MISMATCH");
             }
 
-            this.productService.UpdateProduct(updateProduct);
-            return Ok();
+            var response = await this.productService.UpdateProduct(updateProduct);
+            return response;
         }
     }
 }

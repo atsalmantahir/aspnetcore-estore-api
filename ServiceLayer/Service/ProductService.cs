@@ -20,10 +20,12 @@ namespace ServiceLayer.Service
             this.mapper = mapper;
         }
 
-        public Task<ObjectResult> AddProduct(AddProductModel addProduct)
+        public async Task<ObjectResult> AddProduct(AddProductModel addProduct)
         {
             var product = mapper.Map<Product>(addProduct);
-            this.productRepository.AddProduct(product);
+            var result = await this.productRepository.AddProduct(product);
+
+            return result ? new CreatedResult("", "PRODUCT_HAS_BEEN_CREATED") : new ObjectResult("PRODUCT_HAS_NOT_BEEN_CREATED");
         }
 
         public async Task<ObjectResult> GetProducts()
@@ -53,10 +55,12 @@ namespace ServiceLayer.Service
             return result ? new ObjectResult("PRODUCT_HAS_BEEN_DELETED") : new ObjectResult("PRODUCT_HAS_NOT_BEEN_DELETED");
         }
 
-        public Task<ObjectResult> UpdateProduct(UpdateProductModel updateProduct)
+        public async Task<ObjectResult> UpdateProduct(UpdateProductModel updateProduct)
         {
             var productToUpdate = mapper.Map<Product>(updateProduct);
-            this.productRepository.UpdateProduct(productToUpdate);
+            var result = await this.productRepository.UpdateProduct(productToUpdate);
+
+            return result ? new CreatedResult("", "PRODUCT_HAS_BEEN_UPDATED") : new ObjectResult("PRODUCT_HAS_NOT_BEEN_UPDATED");
         }
     }
 }
