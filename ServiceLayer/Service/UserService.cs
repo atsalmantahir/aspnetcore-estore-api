@@ -73,7 +73,7 @@ namespace ServiceLayer.Service
             return new OkObjectResult(tokenResponse);
         }
 
-        public async Task<ObjectResult> Register(RegisterModel registerModel)
+        public async Task<ObjectResult> Register(RegisterModel registerModel, DomainLayer.Models.Enums.UserRole userRole)
         {
             
             var userNameExists = await userManager.FindByNameAsync(registerModel.Username);
@@ -94,7 +94,7 @@ namespace ServiceLayer.Service
 
             if (result.Succeeded) 
             {
-                switch (registerModel.UserRole)
+                switch (userRole)
                 {
                     case DomainLayer.Models.Enums.UserRole.ADMIN:
                         // Add Admin

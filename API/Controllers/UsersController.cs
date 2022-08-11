@@ -23,10 +23,26 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel registerModel)
+        [Route("register/admin")]
+        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel registerModel)
         {
-            var response = await this.userService.Register(registerModel);
+            var response = await this.userService.Register(registerModel, DomainLayer.Models.Enums.UserRole.ADMIN);
+            return response;
+        }
+
+        [HttpPost]
+        [Route("register/user")]
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterModel registerModel)
+        {
+            var response = await this.userService.Register(registerModel, DomainLayer.Models.Enums.UserRole.USER);
+            return response;
+        }
+
+        [HttpPost]
+        [Route("register/customer")]
+        public async Task<IActionResult> RegisterCustomer([FromBody] RegisterModel registerModel)
+        {
+            var response = await this.userService.Register(registerModel, DomainLayer.Models.Enums.UserRole.CUSTOMER);
             return response;
         }
     }

@@ -6,6 +6,6 @@ namespace ServiceLayer.IService
     public interface IUserService
     {
         Task<ObjectResult> Login(LoginModel loginModel);
-        Task<ObjectResult> Register(RegisterModel registerModel);
+        Task<ObjectResult> Register(RegisterModel registerModel, DomainLayer.Models.Enums.UserRole userRole);
     }
 }
